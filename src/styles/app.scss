@@ -1,0 +1,172 @@
+@use './variables' as vars;
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
+body {
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+  font-weight: 400;
+  margin: 0;
+  min-height: 100vh;
+}
+
+body,
+* {
+  color: vars.$color-black;
+  box-sizing: border-box;
+}
+
+a {
+  color: vars.$color-black-6;
+  text-decoration: none;
+
+  &:hover {
+    color: vars.$color-black;
+  }
+}
+
+.text-primary {
+  color: vars.$color-primary;
+}
+
+.text-white {
+  color: vars.$color-white;
+}
+
+.text-black {
+  color: vars.$color-black;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.d-block {
+  display: block;
+}
+
+.d-inline-block {
+  display: inline-block;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.full-width {
+  width: 100%;
+}
+.page-content {
+  padding-top: 50px;
+  height: 100vh;
+}
+.page-container {
+  min-width: 320px;
+  margin: 0 auto;
+}
+
+.el-input {
+  padding: 4px 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  height: 32px;
+  border-radius: 4px;
+  border: 1px solid vars.$color-desc;
+}
+
+.el-btn {
+  background-color: vars.$color-primary;
+  border: none;
+  color: vars.$color-white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+
+  &-outline {
+    background-color: transparent;
+    border: 2px solid vars.$color-primary;
+    color: vars.$color-primary;
+  }
+
+  &-text {
+    border: none;
+    background: none;
+    color: vars.$color-black-6;
+  }
+
+  &.el-btn-lg {
+    padding: 10px 16px;
+    width: 100%;
+    font-size: 18px;
+  }
+
+  +.el-btn {
+    margin-left: 10px;
+  }
+
+  +.el-btn-sm {
+    padding: 4px 6px;
+    margin-left: 4px;
+  }
+}
+
+.el-tab {
+  margin-top: 20px;
+  display: flex;
+
+  .el-tab-item {
+    flex: 1;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    border-bottom: 2px solid vars.$color-desc;
+
+    &.el-tab-active {
+      border-bottom: 2px solid vars.$color-black;
+    }
+  }
+}
+
+.el-list {
+  .el-list-item {
+    border-bottom: 1px solid #eee;
+
+    &:hover {
+      background-color: #f9f9f9;
+    }
+  }
+}
+
+.el-card {
+  .el-card-wrap {
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 1rem;
+    background-color: vars.$color-white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@media screen and (max-width: 499px) {
+  .el-card {
+    .el-card-wrap {
+      padding: 0.5rem;
+    }
+  }
+}

@@ -1,0 +1,36 @@
+@use './variables' as vars;
+.page-header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: 0;
+    padding: 0 30px;
+    height: 50px;
+    line-height: 50px;
+    z-index: 2;
+    background-color: vars.$color-white;
+    .logo {
+        margin-right: 16px;
+        font-size: 24px;
+        font-weight: bold;
+        color: vars.$color-primary;
+    }
+    .nav-link {
+        display: inline-block;
+        padding: 0 4px;
+        height: 48px;
+        font-size: 16px;
+        &+.nav-link {
+            margin-left: 16px;
+        }
+        &.active {
+            font-weight: 700;
+            color: vars.$color-primary;
+            border-bottom: 2px solid vars.$color-primary;
+        }
+    }
+    .login {
+        float: right;
+    }
+}

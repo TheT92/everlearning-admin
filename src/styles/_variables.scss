@@ -1,0 +1,71 @@
+$color-primary: #2563EB;
+$color-black: #000000;
+$color-black-3: #333333;
+$color-black-6: #666666;
+$color-black-9: #999999;
+$color-white: #ffffff;
+$color-desc: #cccccc;
+
+$step: 0.25rem;
+
+@for $i from 0 through 8 {
+  .p-#{$i} {
+    padding: $i * $step;
+  }
+
+  .pl-#{$i} {
+    padding-left: $i * $step;
+  }
+
+  .pr-#{$i} {
+    padding-right: $i * $step;
+  }
+
+  .pt-#{$i} {
+    padding-top: $i * $step;
+  }
+
+  .pb-#{$i} {
+    padding-bottom: $i * $step;
+  }
+}
+
+// margin
+@for $i from 0 through 8 {
+  .m-#{$i} {
+    margin: $i * $step;
+  }
+
+  .ml-#{$i} {
+    margin-left: $i * $step;
+  }
+
+  .mr-#{$i} {
+    margin-right: $i * $step;
+  }
+
+  .mt-#{$i} {
+    margin-top: $i * $step;
+  }
+
+  .mb-#{$i} {
+    margin-bottom: $i * $step;
+  }
+}
+
+$fw_base: 100;
+
+@for $i from 1 through 7 {
+  .fw-#{$i} {
+    font-weight: $i * $fw_base;
+  }
+}
+
+// font size
+$font_size: 0.75rem;
+
+@for $i from 0 through 6 {
+  .fs-#{$i} {
+    font-size: $i * 0.25 + $font_size !important;
+  }
+}

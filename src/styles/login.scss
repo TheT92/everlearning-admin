@@ -1,0 +1,15 @@
+.login-page {
+    display: flex;
+    justify-content: center;
+}
+.login-box {
+    width: 90%;
+    max-width: 500px;
+    .el-tab {
+        margin-bottom: 60px;
+        width: 100%;
+        a {
+            display: block;
+        }
+    }
+}
