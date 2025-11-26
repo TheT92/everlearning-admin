@@ -19,9 +19,12 @@ const problemTypes = [
     { value: 1, label: 'Q&A' }
 ]
 
+const initialValues = { title: '', difficulty: 1, categoriesArr: [], problemType: 1, description: '', answer: '' }
+
 export default function Problem() {
+    const [form] = Form.useForm();
     const [categories, setCategories] = useState([]);
-    const [formData, setFormData] = useState<FieldType>({ title: '', difficulty: 1, categoriesArr: [], problemType: 1, description: '', answer: '' });
+    const [formData, setFormData] = useState<FieldType>(initialValues);
 
 
     const fetchData = () => {
@@ -45,6 +48,7 @@ export default function Problem() {
         apiAddProblem(values).then(res => {
             console.log("success", res)
             message.success("Add problem successfully!")
+            form.resetFields();
         }).catch(err => {
             console.log("error", err)
             message.error("Add problem failed")
@@ -60,8 +64,9 @@ export default function Problem() {
             <h2>Add Problem</h2>
             <Form
                 name="basic"
+                form={form}
                 labelAlign="right"
-                initialValues={{ remember: true }}
+                initialValues={initialValues}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"

@@ -13,6 +13,7 @@ import React from 'react';
 
 const Login = lazy(() => import('../pages/login.tsx'));
 const Problems = lazy(() => import('../pages/problems.tsx'));
+const Categories = lazy(() => import('../pages/categories.tsx'));
 const Problem = lazy(() => import('../pages/problem.tsx'));
 const AddProblem = lazy(() => import('../pages/add-problem.tsx'));
 const Courses = lazy(() => import('../pages/courses.tsx'));
@@ -34,13 +35,12 @@ function AppRouter() {
             key: `Categories`,
             icon: React.createElement(LaptopOutlined),
             label: `Category`,
-            children: Array.from({ length: 4 }).map((_, j) => {
-                const subKey = `Category` + j + 1;
-                return {
-                    key: subKey,
-                    label: `option${subKey}`,
-                };
-            }),
+            children: [
+                {
+                    key: 'categoryList',
+                    label: (<Link to="/categories">Categories List</Link>),
+                }
+            ],
         },
         {
             key: `Problems`,
@@ -48,30 +48,12 @@ function AppRouter() {
             label: `Problems`,
             children: [
                 {
-                    key: 'problems',
+                    key: 'problemList',
                     label: (<Link to="/problems">Problems List</Link>),
                 }
             ],
         }
     ]
-    const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
-        (icon, index) => {
-            const key = String(index + 1);
-
-            return {
-                key: `sub${key}`,
-                icon: React.createElement(icon),
-                label: `subnav ${key}`,
-                children: Array.from({ length: 4 }).map((_, j) => {
-                    const subKey = index * 4 + j + 1;
-                    return {
-                        key: subKey,
-                        label: `option${subKey}`,
-                    };
-                }),
-            };
-        },
-    );
 
     const MainLayout = () => {
         return (
@@ -91,7 +73,7 @@ function AppRouter() {
                             items={menu}
                         />
                     </Sider>
-                    <Layout style={{ padding: '0 24px 24px' }}>
+                    <Layout className='content-view'>
                         <Breadcrumb
                             items={[{ title: 'Home' }, { title: 'List' }, { title: 'App' }]}
                             style={{ margin: '16px 0' }}
@@ -138,6 +120,7 @@ function AppRouter() {
                         <Route path='/problems' element={<ProtectedRoute><Problems /></ProtectedRoute>} />
                         <Route path='/problem/addProblem' element={<ProtectedRoute><AddProblem /></ProtectedRoute>} />
                         <Route path='/problem/:id' element={<ProtectedRoute><Problem /></ProtectedRoute>} />
+                        <Route path='/categories' element={<ProtectedRoute><Categories /></ProtectedRoute>} />
                         <Route path='/courses' element={<ProtectedRoute><Courses /></ProtectedRoute>} />
                     </Route>
                     <Route path='/login' element={<Login />} />

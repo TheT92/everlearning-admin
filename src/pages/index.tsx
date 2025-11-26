@@ -31,10 +31,9 @@ export default function Index() {
 
     const fetchData = () => {
         apiGetCategories().then(res => {
-            console.log("success", res.data?.data, '-----------------------')
             setCategories(res.data?.data)
         }).catch(err => {
-            console.log("error", err)
+            console.error("error", err)
         })
     }
     useEffect(() => {

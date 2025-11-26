@@ -10,16 +10,16 @@ body {
 
 body,
 * {
-  color: vars.$color-black;
+  // color: vars.$color-black;
   box-sizing: border-box;
 }
 
 a {
-  color: vars.$color-black-6;
+  // color: vars.$color-black-6;
   text-decoration: none;
 
   &:hover {
-    color: vars.$color-black;
+    // color: vars.$color-black;
   }
 }
 
@@ -74,9 +74,14 @@ a {
   padding-top: 50px;
   height: 100vh;
 }
+.content-view {
+  padding: 0 24px;
+  overflow-y: auto;
+}
 .page-container {
   min-width: 320px;
   margin: 0 auto;
+  padding-bottom: 24px;
 }
 
 .el-input {
