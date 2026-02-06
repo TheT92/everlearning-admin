@@ -28,12 +28,13 @@ export default function Problem() {
 
 
     const fetchData = () => {
-        apiGetCategories().then(res => {
-            setCategories(res.data?.data)
+        apiGetCategories({ page: 1, size: 9999 }).then(res => {
+            const list = res?.data?.list ?? [];
+            setCategories(list);
         }).catch(err => {
-            console.log("error", err)
-        })
-    }
+            console.log("error", err);
+        });
+    };
 
     useEffect(() => {
         // 组件加载时检查认证状态
@@ -124,7 +125,7 @@ export default function Problem() {
                     <TextArea showCount rows={10}></TextArea>
                 </Form.Item>
                 <Form.Item label={null}>
-                    <Button type="primary" htmlType="submit">
+                    <Button type="primary" htmlType="submit" className="mb-4">
                         Submit
                     </Button>
                 </Form.Item>

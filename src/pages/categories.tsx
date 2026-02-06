@@ -1,57 +1,28 @@
 import { Link } from "react-router-dom";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { use, useEffect, useRef, useState } from "react";
-import { Button, Flex, Form, Input, Pagination, Space, Table, Tag } from "antd";
+import { Button, Flex, Form, Input, message, Pagination, Space, Table, Tag } from "antd";
 import type { FormProps, TableProps } from 'antd';
-import { apiGetProblems } from "../apis/problem";
-import { apiAddCategory } from "../apis/category";
+import { apiAddCategory, apiGetCategories } from "../apis/category";
 import '../styles/problems.scss';
 
 interface DataType {
-    title: string;
-    desc: string;
-    difficulty: number;
-    categories: string;
+    uuid: string;
+    name: string;
 }
 
 const columns: TableProps<DataType>['columns'] = [
     {
-        title: 'Title',
-        dataIndex: 'title',
-        key: 'title',
+        title: 'UUID',
+        dataIndex: 'uuid',
+        key: 'uuid',
         render: (text) => <a>{text}</a>,
     },
     {
-        title: 'Desc',
-        dataIndex: 'desc',
-        key: 'desc',
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name',
         render: (text) => <a>{text}</a>,
-    },
-    {
-        title: 'categories',
-        key: 'categories',
-        dataIndex: 'tags',
-        render: (_, { categories }) => (
-            <Flex gap="small" align="center" wrap>
-                <Tag color='volcano' key={categories}>{categories}</Tag>
-            </Flex>
-        ),
-    },
-    {
-        title: 'Difficulty',
-        dataIndex: 'difficulty',
-        key: 'difficulty',
-        render: (text) => (<Tag color={text == 1 ? 'green' : (text == 2 ? 'orange' : 'red')}>{text == 1 ? 'Easy' : (text == 2 ? 'Middle' : 'Hard')}</Tag>),
-    },
-    {
-        title: 'Action',
-        key: 'action',
-        render: (_, record) => (
-            <Space size="middle">
-                <a>Edit</a>
-                <a>Delete</a>
-            </Space>
-        ),
     },
 ];
 
@@ -61,20 +32,22 @@ type FieldType = {
 
 export default function Categories() {
     const navigate = useNavigate();
+    const [form] = Form.useForm();
     const loaded = useRef(false);
     const [total, setTotal] = useState(0);
     const [searchParams] = useSearchParams();
     const [currentPage, setCurrentPage] = useState(1);
-    const [problems, setProblems] = useState<DataType[]>([])
     const [categories, setCategories] = useState([]);
 
     const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
         console.log('Success:', values);
         apiAddCategory(values).then(res => {
-            console.log("success", res)
-            fetchData()
+            message.success("Add category successfully!")
+            fetchData();
+            form.resetFields();
         }).catch(err => {
             console.log("error", err)
+             message.error("Add category failed")
         })
     };
 
@@ -94,10 +67,10 @@ export default function Categories() {
     }, [searchParams]);
 
     const fetchData = (page = 1) => {
-        apiGetProblems({ page: page, size: 10 }).then(res => {
-            const { items, total } = res?.data;
+        apiGetCategories({ page: page, size: 10 }).then(res => {
+            const { list, total } = res?.data;
             setTotal(total);
-            setProblems(items);
+            setCategories(list);
         }).catch(err => {
             console.log(err, 'fetch error');
         })
@@ -113,6 +86,7 @@ export default function Categories() {
             <Input type="text" className="search-bar" placeholder="Search here" />
             <Form
                 name="basic"
+                form={form}
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}
                 style={{ maxWidth: 600 }}
@@ -135,7 +109,7 @@ export default function Categories() {
                     </Button>
                 </Form.Item>
             </Form>
-            <Table<DataType> columns={columns} dataSource={problems} pagination={false} className="mb-4" />
+            <Table<DataType> columns={columns} dataSource={categories} pagination={false} className="mb-4" />
 
             <Pagination onChange={onPageChange} defaultCurrent={1} current={currentPage} total={total} />
         </div>
